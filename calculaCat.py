@@ -2,9 +2,9 @@
 #Programa para calcular aproximadamente la edad de tu gato en 
 #años gatunos
 
-#nombre = str(input('Ingrese el nombre de su mascota felina: '))
-#genero = str(input('ingrese el genero de su mascota felina: '))
-#edad = float(input('ingrese la edad de su mascota felina en años: '))
+nombre = str(input('Ingrese el nombre de su mascota felina: '))
+genero = str(input('ingrese el genero de su mascota felina: '))
+edad = float(input('ingrese la edad de su mascota felina en años: '))
 
 def calcularEdad(nombre, genero, edad):
     if genero == 'macho':
@@ -35,8 +35,9 @@ def calcularEdad(nombre, genero, edad):
 
 
 
-#calcularEdad(nombre, genero, edad)
+calcularEdad(nombre, genero, edad)
 
+print('\n ---------------\n -----datos de prueba-------- \n -------------------\n ')
 calcularEdad('1h', 'hembra', float(1))
 calcularEdad('2m', 'macho', float(2))
 calcularEdad('3o', 'otro', float(3))
