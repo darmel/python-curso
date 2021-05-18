@@ -17,7 +17,6 @@ def ejercicio_3_for_con_decremento():
 
 def ejercicio_4_while():
     m=0
-    nota=0
     notas=0 
     nota=int(input('Ingrese el valor de la nota o 0 para terminar: '))
 
