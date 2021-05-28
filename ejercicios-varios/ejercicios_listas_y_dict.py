@@ -38,8 +38,8 @@ def ejercicio_3_ordenar_y_buscar_lista(numeros):
     print('lista original: ', numeros)
     numeros.sort()
     print('lista ordenada: ', numeros)
-    nnumero=int(input('Ingrese un nuevo año: '))
-    if nnumero in numeros:
+    nuevo_numero=int(input('Ingrese un nuevo año: '))
+    if nuevo_numero in numeros:
         print(f'El año {nnumero} YA se encuentra en la lista')
     else:
         print(f'El año {nnumero} NO se encuentra en la lista')
