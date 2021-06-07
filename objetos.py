@@ -35,14 +35,21 @@ Una clase es una definicion abstracta de un objeto
     de esta manera podemos compartir informacion eficiente y facilmente dentro de una clase
 '''
 class Persona: 
-    def __init__(self, __nombre, __apellido, __empresa):
-        self.__nombre = 'nombre'
-        self.__apellido = 'apellido'
-        self.__empresa = 'empresa'
+    def __init__(self, nombre, apellido, empresa='Incluit'):
+        self.__nombre = nombre
+        self.__apellido = apellido
+        self.__empresa = empresa
 
     def presentarse(self):
         print(f"Hola, mi nombre es {self.__nombre} {self.__apellido} y trabajo en {self.__empresa}")
 
+    def incorporarse_a_incluit(self):
+        self.__empresa = 'Incluit'
 
+    def set_empresa(self, empresa):
+        self.__empresa = empresa
+
+    def get_nombre(self):
+        return self.__nombre
 
 #class Alumno(Persona): #alumno hereda atributos y metodos def persona
