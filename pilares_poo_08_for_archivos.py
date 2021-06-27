@@ -3,7 +3,7 @@ es el pilar de la poop, que permite identificar las caracteristicas t comportame
 cuales se construira la clase (plantilla), esto quiere decir que a travez de este pilar o fundamento
 es posible reconocer los atributos y metodos de un objeto
 """
-
+import json
 class Alumno:
     def __init__(self, nombre, apellido, anio_cursado):
         self.__nombre = nombre
@@ -22,6 +22,13 @@ class Alumno:
     pertenece a la parte privada de la clase que no puede ser vista ni moficada por ningun otro programa
     """
 
+class Persona(json.JSONEncoder):
+    def __init__(self, nombre, apellido):
+        self._nombre = nombre
+        self._apellido = apellido
+#Un solo _ en el atributo va a habilitar a las clases dentro del mismo paquete a verlos/modificarlos
+
+    
     @property
     def apellido(self):
         return self.__apellido
@@ -30,12 +37,9 @@ class Alumno:
     def set_apellido(self, apellido):
         self.__apellido = f"{apellido} (modificado)"
 
+    def to_json(self):
+        return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
 
-class Persona:
-    def __init__(self, nombre, apellido):
-        self._nombre = nombre
-        self._apellido = apellido
-#Un solo _ en el atributo va a habilitar a las clases dentro del mismo paquete a verlos/modificarlos
 
 class Profesor(Persona):
     def __init__(self, nombre, apellido, legajo):
