@@ -17,6 +17,9 @@ class Personaje:
     def get_inteligencia(self):
         return self.__inteligencia
 
+    def get_nombre(self):
+        return self.__nombre
+
     def atributos(self):
         print(self.__nombre, ":", sep='')
         print("-Fuerza: ", self.__fuerza)
@@ -72,12 +75,6 @@ class Guerrero(Personaje):
     def dano(self, enemigo):
         return self.get_fuerza() * self.__espada - enemigo.get_defensa()
 
-    def test(self):
-        # print(self.__fuerza)
-        print(self.get_fuerza())
-        print(self.__espada)
-        print(self.get_fuerza()*self.__espada)
-
 
 class Mago(Personaje):
     def __init__(self, nombre, fuerza, inteligencia, defensa, vida, libro):
@@ -90,6 +87,25 @@ class Mago(Personaje):
 
     def dano(self, enemigo):
         return self.get_inteligencia()*self.__libro-enemigo.get_defensa()
+
+
+def combate(jugador_1, jugador_2):
+    print("--- Combate entre ", jugador_1.get_nombre(),
+          "y ", jugador_2.get_nombre(), "---")
+    turno = 0
+    while jugador_1.esta_vivo() and jugador_2.esta_vivo():
+        print(" Turno", turno)
+        print("-Accion de ", jugador_1.get_nombre(), ":")
+        jugador_1.atacar(jugador_2)
+        print("-Accion de ", jugador_2.get_nombre(), ":")
+        jugador_2.atacar(jugador_1)
+        turno = turno+1
+    if jugador_1.esta_vivo():
+        print("El ganador es: ", jugador_1.get_nombre())
+    elif jugador_2.esta_vivo():
+        print("El ganador es: ", jugador_2.get_nombre())
+    else:
+        print("Empate")
 
 
 mi_personaje = Personaje("Darmel", 12, 1, 5, 100)
@@ -115,7 +131,6 @@ goku.atributos()
 guts.atributos()
 vanessa.atributos()
 
-# guts.test()
 goku.atacar(guts)
 guts.atacar(vanessa)
 vanessa.atacar(goku)
@@ -125,4 +140,8 @@ guts.atacar(goku)
 goku.atributos()
 guts.atributos()
 vanessa.atributos()
-#
+
+aragorn = Guerrero("Aragorn", 30, 15, 20, 100, 15)
+hermione = Mago("Hermione", 12, 20, 5, 100, 15)
+
+combate(aragorn, hermione)
