@@ -29,3 +29,5 @@ print("manzana" in frutas)  # false, porque no esta
 print("frutilla" in frutas)
 
 print(frutas.index("uva"))
+
+frutas.remove()

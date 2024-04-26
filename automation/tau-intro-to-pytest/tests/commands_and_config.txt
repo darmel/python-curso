@@ -1,0 +1,102 @@
+forma tradicional de lanzar los tests:
+
+python -m pytest
+
+======================= test session starts =======================
+platform linux -- Python 3.8.10, pytest-8.1.1, pluggy-1.5.0
+rootdir: /home/user/Documents/python-curso/automation/tau-intro-to-pytest/tests
+collected 14 items                                                
+
+test_accum.py .....                                         [ 35%]
+test_math.py F........                                      [100%]
+
+============================ FAILURES =============================
+________________________ test_one_plus_one ________________________
+
+    def test_one_plus_one():  # cada test es una funcion, debe comenzar con "test_"
+>       assert 1+1 == 0
+E       assert (1 + 1) == 0
+
+test_math.py:6: AssertionError
+===================== short test summary info =====================
+FAILED test_math.py::test_one_plus_one - assert (1 + 1) == 0
+================== 1 failed, 13 passed in 0.06s ===================
+
+si le aumentas --verbose te da más info de cada test
+
+$ python -m pytest --verbose
+======================= test session starts =======================
+platform linux -- Python 3.8.10, pytest-8.1.1, pluggy-1.5.0 -- /home/user/Documents/python-curso/automation/bin/python
+cachedir: .pytest_cache
+rootdir: /home/user/Documents/python-curso/automation/tau-intro-to-pytest/tests
+collected 14 items                                                
+
+test_accum.py::test_acuumulator_init PASSED                 [  7%]
+test_accum.py::test_accumulator_add_one PASSED              [ 14%]
+test_accum.py::test_accumulator_add_three PASSED            [ 21%]
+test_accum.py::test_accumulator_add_twice PASSED            [ 28%]
+test_accum.py::test_accumulator_cannot_set_count_directly PASSED [ 35%]
+test_math.py::test_one_plus_one FAILED                      [ 42%]
+test_math.py::test_one_plus_two PASSED                      [ 50%]
+test_math.py::test_divide_by_zero PASSED                    [ 57%]
+test_math.py::test_multiplication[2-3-6] PASSED             [ 64%]
+test_math.py::test_multiplication[1-99-99] PASSED           [ 71%]
+test_math.py::test_multiplication[0-99-0] PASSED            [ 78%]
+test_math.py::test_multiplication[3--4--12] PASSED          [ 85%]
+test_math.py::test_multiplication[-5--5-25] PASSED          [ 92%]
+test_math.py::test_multiplication[2.5-6.7-16.75] PASSED     [100%]
+
+============================ FAILURES =============================
+________________________ test_one_plus_one ________________________
+
+    def test_one_plus_one():  # cada test es una funcion, debe comenzar con "test_"
+>       assert 1+1 == 0
+E       assert (1 + 1) == 0
+
+test_math.py:6: AssertionError
+===================== short test summary info =====================
+FAILED test_math.py::test_one_plus_one - assert (1 + 1) == 0
+================== 1 failed, 13 passed in 0.05s ===================
+
+si usasa --quiet no pone los banners, solo te pone . y F
+$ python -m pytest --quiet
+.....F........                                              [100%]
+============================ FAILURES =============================
+________________________ test_one_plus_one ________________________
+
+    def test_one_plus_one():  # cada test es una funcion, debe comenzar con "test_"
+>       assert 1+1 == 0
+E       assert (1 + 1) == 0
+
+test_math.py:6: AssertionError
+===================== short test summary info =====================
+FAILED test_math.py::test_one_plus_one - assert (1 + 1) == 0
+1 failed, 13 passed in 0.05s
+
+--exitfirst ejecuta hasta que falla un test, cuando falla se frena todo el resto
+$ python -m pytest --exitfirst
+======================= test session starts =======================
+platform linux -- Python 3.8.10, pytest-8.1.1, pluggy-1.5.0
+rootdir: /home/user/Documents/python-curso/automation/tau-intro-to-pytest/tests
+collected 14 items                                                
+
+test_accum.py .....                                         [ 35%]
+test_math.py F
+
+============================ FAILURES =============================
+________________________ test_one_plus_one ________________________
+
+    def test_one_plus_one():  # cada test es una funcion, debe comenzar con "test_"
+>       assert 1+1 == 0
+E       assert (1 + 1) == 0
+
+test_math.py:6: AssertionError
+===================== short test summary info =====================
+FAILED test_math.py::test_one_plus_one - assert (1 + 1) == 0
+!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!
+=================== 1 failed, 5 passed in 0.03s ===================
+
+--maxfail=X para frenar despues de X test fallados
+
+para generar reporte en junit xml
+$ python -m pytest --junit-xml [el poath a donde se genera el reporte, ej: ./report.xml]
