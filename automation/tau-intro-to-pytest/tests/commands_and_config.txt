@@ -100,3 +100,84 @@ FAILED test_math.py::test_one_plus_one - assert (1 + 1) == 0
 
 para generar reporte en junit xml
 $ python -m pytest --junit-xml [el poath a donde se genera el reporte, ej: ./report.xml]
+
+-----_______________________--------------------_____________------------------
+
+pytest configuration file.
+
+crear archivo pytest.ini
+
+[pytest]
+addopts = -v
+
+esto hace que todos las tiradas de los tests usen verbose
+
+-----_______-------_______--------
+para correr algunos de los tests
+
+poner el path de la carpeta o el archivo
+
+$ python -m pytest tests/test_accum.py 
+======================= test session starts =======================
+platform linux -- Python 3.8.10, pytest-8.1.1, pluggy-1.5.0
+rootdir: /home/user/Documents/python-curso/automation/tau-intro-to-pytest
+collected 5 items                                                 
+
+tests/test_accum.py .....                                   [100%]
+
+======================== 5 passed in 0.01s ========================
+
+correr algun test en particular:
+$ python -m pytest tests/test_math.py::test_one_plus_one
+======================= test session starts =======================
+platform linux -- Python 3.8.10, pytest-8.1.1, pluggy-1.5.0
+rootdir: /home/user/Documents/python-curso/automation/tau-intro-to-pytest
+collected 1 item                                                  
+
+tests/test_math.py .                                        [100%]
+
+======================== 1 passed in 0.01s ========================
+
+
+para correr los que tengan algo en comun
+$ python -m pytest -k one
+
+
+---________-----_________________------_______-------_______
+Markers
+hay que agregarlos ene l archivo pytest.ini para que no tire las warnings
+[pytest]
+markers =
+  accumulator
+  math
+
+despues se lanza:
+$ python -m pytest -m math
+
+-_________------_____-----___---____---_--
+
+PLUGINS
+
+pytest-html:
+crea un archivo html del reporte, 
+install plugin: $ python -m pytest --html=report.html
+run with plugin: $ python -m pytest --html=report.html
+
+pytest-cov:
+para unit-test, para el coverage del codigo.
+para instalar: $ pip install pytest-cov
+para aejecutarlo: $ python -m pytest --cov=stuff --cov-report html
+para que genere el reporte html del coverage del codigo. se debe usar sobre el codigo que se prueba, no sobre el codigo de los tests
+
+pytest-xdist:
+para correr tests en paralelo
+para instalar: $ pip install pytest-xdist
+para correr: $ python -m pytest -n 3 (el último numero es el de los hilos)
+
+pytest-bdd:
+te deja escribir test usando gherkin para hacer tests BDD 
+
+para hacer test de API:
+$ pip install requests
+
+para hacer test de UI con polaywrigth:

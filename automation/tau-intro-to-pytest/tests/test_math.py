@@ -42,6 +42,8 @@ products = [
     (2.5, 6.7, 16.75)
 ]
 
+# un decorator para ser marker
+
 
 @pytest.mark.math
 # un decorator para usar los parametrosq
