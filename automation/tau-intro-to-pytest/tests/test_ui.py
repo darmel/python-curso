@@ -8,7 +8,7 @@ from playwright.sync_api import Page, expect
 @pytest.mark.acme_bank
 # usa page fixture, que lo provee el plugin de playwright
 def test_acme_bank_login(page: Page):
-    # arrange:
+    # Arrange:
     page.goto('https://demo.applitools.com')
 
     # Act:
@@ -33,4 +33,7 @@ def test_acme_bank_login(page: Page):
 # para instalar playwright propiamente dicho:
 # $playwright install
 
-# para corrrer los tests:
+# para corrrer los tests en forma headless:
+# $ python -m pytest tests/test_ui.py
+# para correr los tests y ver el browser,a demas hacerlo con pausas por cada interaccion:
+# $ python -m pytest tests/test_ui.py --headed --slowmo 1000

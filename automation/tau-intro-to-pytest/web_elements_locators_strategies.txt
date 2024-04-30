@@ -1,0 +1,126 @@
+DOM
+Document Object Model
+
+present the PAGE as an object
+
+elements are rooted
+
+no depende del lenguaje
+
+Element, Locator, Selector
+
+Element is a objeto que represetna algo real de la pagina
+
+Locator, es un objeto que point un elements
+
+Selector: es una consulta que devuvle como localizar un elemento del DOM
+
+
+Locator ej: ID, class name, css selectors, xpath. etc 
+
+a locator puede devolver más de un elemento
+
+javascript puede interactuiar con los elementos y cambiarles el estado
+selenium (java, python) no pueden cambiar el estado.
+
+
+Ch 3- Finding Live Web Elements
+
+buscar el locator mas simple que permita individualizar el elemento
+ids son el mejor locator
+name atribute: generalmente son unicos en la pagina.
+css class name: pueden servir como identificador, no necesariamente son unicos por elements, sirven para cuando son varios elements
+
+Ch 4- CSS selectors
+la class es un atributo
+
+CSS selectors: expresiones de patrones que usa el archivo css
+[dot]class.name (.class-name)
+ancesters relationship:
+.class-name_padre .class-name_hijo
+parent child direct relationship
+.class-name_padre > .class-name_hijo (relacion directa, nada en el medio) 
+
+css atributes
+buscar elemementos que tengan style atribute
+[style]
+solo los div elelements con style
+div[style]
+buscar atributo=data-zci-link:
+a[data-zci-link]
+atributo class que contenga la palabra "result"
+div[class*='result'] (el asteristico indica que contiene y sin es que es exact match)
+
+buscar todos los div con result que no tengan result--more
+div.result:not(.result--more)
+
+si hay varios con igual class y quiero el 3ero:
+div.result:nth-child(6)
+
+
+css pueden ser mas especificos que IDs o names
+no puden locate elements por text content ni por index
+
+Ch 5- XPath
+son los más especificables, pueden identificar cualquier elemento
+
+se empieza con / y asi sucesivamente
+/html/body/[y asi]
+
+tambein se puede empezar con // y busca todas las coincidencias
+y desde ahi se puede ir especificando los childs
+//ul/ui/a
+
+//div//* busca todos los elements que sean hijos directos o no del div
+
+tambein puede seleccionar en base a los atributos s epone el atribute name entre [@atribute]
+//li[@class='zcm-Item'] 
+
+conditionals, funciona como Y, ambas condiciones deben coincidir
+//img[@width<20][@height<20] 
+//img[@width<20 and @height<20]
+
+algo bien robsto usa xpath y id o name
+//input[@name=q or @id='search_form_input]
+
+para buscar elementos con nombre de clase que CONTENGAN
+//div[contains(@class,'result_snippet')]
+
+buscar elemento que comienza con:
+//div[starts-with(@class, 'result')]
+
+buscar elemento que NO contenga:
+//a[not(contains(@class, 'header'))]
+
+Ch 6- Advanced XPaths
+para buscar por el texto que contiene el elmento:
+//div[contains(@class,'result_snippet')][contains(.,'bamboo')]
+el 2do [] es otro condicional, el . significa "text"
+se puede usar: [contains(text(),'bamboo')] pero eso busca el match exacto
+
+que no contengan la palabra:
+//div[contains(@class,'result_snippet')][not(contains(.,'bamboo'))]
+
+si quiero el 3ero (el indice empieza con 1... NO con 0)
+(//div[contains(@class,'result_snippet')])[3]
+
+el indice y el contenido es lo que más puede cambiar
+
+selecciona el elmeneto que tiene un child  //img  el . significa que empieza a buscar desde el a, y el // que puede ser any desendant
+//a[.//img]
+
+si tengo varios elementos y quiero solo los que le SIGUEN a uno determinado "web"
+//a[contains(@class,'zcm_link')][preceding::a[@data-zci-link='web']]
+
+y si quioero los que estuvieran ANTES de otro (videos)
+//a[contains(@class,'zcm_link')][following::a[@data-zci-link='videos']]
+
+Ch 7- Picking the Right Locator
+Ids, input names, class names, css selectos, xpath
+depende de la herramienta que estgemos usando, algunas herramientas soportan
+más locators que se basan en xpath
+playwright tienen todavía más locators
+Visual locators... depende de la herrameinta... 
+
+
+

@@ -180,4 +180,17 @@ te deja escribir test usando gherkin para hacer tests BDD
 para hacer test de API:
 $ pip install requests
 
+----________-----________----____---____--____----
+
 para hacer test de UI con polaywrigth:
+ para instalar playwright en python:
+ $ pip install playwright
+ para instalar la libreria para usarlo con pytest:
+ $pip install pytest-playwright
+ para instalar playwright propiamente dicho:
+ $playwright install
+
+ para corrrer los tests en forma headless:
+ $ python -m pytest tests/test_ui.py
+ para correr los tests y ver el browser,a demas hacerlo con pausas por cada interaccion:
+ $ python -m pytest tests/test_ui.py --headed --slowmo 1000
