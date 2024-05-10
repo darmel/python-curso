@@ -121,6 +121,38 @@ depende de la herramienta que estgemos usando, algunas herramientas soportan
 más locators que se basan en xpath
 playwright tienen todavía más locators
 Visual locators... depende de la herrameinta... 
+buscar el locator mas simple que identifique unicamente
+1-test ID 
+2-ID
+3-Input name
+4-class name
+5-text value
+6- css selector
+7- XPath without text or indexing
+8- link text or partial link text
+9- Xpath with text and/or indexing
+
+Ch 8- Using Locators for Testing
+para web UI:
+Selenium web driver
+cyupress
+playwright
+para mobile:
+Appium
+espresso
+XCUI
+
+patrones:
+DOM
+POM
+screenplay 
+
+
+
+
+
+
+
 
 
 

@@ -3,3 +3,4 @@ automation/bin/
 automation/lib/
 automation/include/
 share/
+*venv
