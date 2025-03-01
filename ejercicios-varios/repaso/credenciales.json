@@ -1,0 +1,14 @@
+[
+    {
+        "usuario": "Usuario1",
+        "contrase\u00f1a:": "1234"
+    },
+    {
+        "usuario": "Usuario2",
+        "contrase\u00f1a:": "5678"
+    },
+    {
+        "usuario": "Usuario3",
+        "contrase\u00f1a:": "91011"
+    }
+]
