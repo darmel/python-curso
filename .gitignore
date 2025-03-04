@@ -4,3 +4,6 @@ automation/lib/
 automation/include/
 share/
 *venv
+venv*
+.vscode/
+
