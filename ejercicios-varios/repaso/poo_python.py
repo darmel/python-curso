@@ -1,4 +1,6 @@
 print("ejercicio de POO")
+import random
+
 
 #creo una clase llamada Personaje
 class Personaje:
@@ -22,7 +24,12 @@ class Personaje:
         print("- Fuerza:", self.fuerza)
         print("- Inteligencia:", self.inteligencia)
         print("- Defensa", self.defensa)
-        print("- Vida", self.vida)
+        #print("- Vida", self.vida)
+        self.mostrar_vida()
+
+    def mostrar_vida(self):
+        barra = "[" + "|" * self.vida + " " * (100 - self.vida) + "]"
+        print("- Vida:", barra, self.vida, "/ 100")
 
     def subir_nivel(self, inc_fuerza, inc_inteligencia, inc_defensa):
         self.fuerza = self.fuerza + inc_fuerza
@@ -37,8 +44,12 @@ class Personaje:
         print(self.nombre, "ha muerto")
 
     def dano(self, enemigo):
-        #print(self.fuerza - enemigo.defensa)
-        return self.fuerza - enemigo.defensa
+        if self.vida >= 30:
+            return self.fuerza - enemigo.defensa
+        else:
+            k = int(random.randint(3, 8))
+            print (self.nombre, " usó Ultimo recurso con multiplicador: ", k)
+            return self.fuerza*k
     
     def atacar(self, enemigo):
         dano = self.dano(enemigo)
@@ -46,6 +57,7 @@ class Personaje:
         print(self.nombre, "ha realizado", dano, "puntos de daño a", enemigo.nombre)
         if enemigo.esta_vivo():
             print("La vida de", enemigo.nombre, "es", enemigo.vida)
+            enemigo.mostrar_vida()
         else:
             enemigo.morir()
 
@@ -70,7 +82,11 @@ class Guerrero(Personaje):
             print("Número incorrecto")
 
     def dano(self, enemigo):
-        return self.fuerza*self.espada - enemigo.defensa
+        if self.vida >= 20:
+            return self.fuerza*self.espada - enemigo.defensa
+        else:
+            print(self.nombre, " ha usado ultimo recurso y elimina la defensa del oponete.")
+            return self.fuerza*self.espada
     
 class Mago(Personaje):
     def __init__(self, nombre, fuerza, inteligencia, defensa, vida, libro):
@@ -78,13 +94,19 @@ class Mago(Personaje):
         self.libro = libro
     
     def dano(self, enemigo):
-        return self.inteligencia*self.libro - enemigo.defensa
+        if self.vida >= 20:
+            return self.inteligencia*self.libro - enemigo.defensa
+        else:
+            print(self.nombre, "usó ultimo recurso y ha recuperado toda su salud con un hechizo en lugar de atacar")
+            self.vida = 100
+            return 0
+
         
 
 
 goku = Personaje("Goku", 20, 15, 10, 100)
 guts = Guerrero("Guts", 20, 15, 10, 100, 5)
-rosa = Mago("Rosa", 20, 15, 10, 100, 5)
+rosa = Mago("Rosa", 20, 15, 10, 100, 6)
 
 def combate(jugador_1, jugador_2):
     turno=1
@@ -103,5 +125,6 @@ def combate(jugador_1, jugador_2):
     else:
         print("\nEmpate")
 
+goku.atributos()
 
-combate(guts, rosa)
+combate(goku, rosa)
