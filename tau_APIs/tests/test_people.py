@@ -1,10 +1,15 @@
+import random
 import requests
 from assertpy.assertpy import assert_that
-
-from json import dumps
+import pytest
+from json import dumps, loads
+import json
+from pathlib import Path
+from utils.file_reader import read_file
 from utils.print_helpers import pretty_print
 from config import BASE_URL
 from uuid import uuid4
+from jsonpath_ng import parse
 
 
 def test_read_all_has_kent():
@@ -53,6 +58,42 @@ def test_user_can_be_deleted():
     # pretty_print(respose)
 
 
+def test_person_added_with_json_template(create_data):
+    create_new_unique_user(create_data)
+    # pretty_print(create_data)
+
+    response = requests.get(BASE_URL)
+    assert_that(response.status_code).is_equal_to(200)
+    people = loads(response.text)
+    # asi se puede conseguir los assert igual que en los otros tests
+    # new_user = obtain_person_by_lastname(create_data['lname'], people=people)
+    # assert_that(new_user[0]['lname']).is_equal_to(create_data['lname'])
+
+    # de esta forma es para usar jsonpath, usando: jsonpath-ng
+    # $: emepznado en la raiz, [*]:todos los elementos del array, lname:lo que busco
+    jsonpath_expr = parse("$.[*].lname")
+    # print("jsonpath: ")
+    # pretty_print(jsonpath_expr)
+    persons_lnames = [match.value for match in jsonpath_expr.find(
+        people)]  # esto me devuelve un array de lnames
+    # print("lnames: ")
+    # pretty_print(persons_lnames)
+    assert_that(persons_lnames).contains(create_data['lname'])
+
+
+@pytest.fixture
+def create_data():
+    payload = read_file('create_person.json')
+    # print("payload desde json:")
+    # pretty_print(payload)
+    random_no = random.randint(0, 1000)
+    last_name = f'Lastname{random_no}'
+    payload['lname'] = last_name
+    # print("payload desde json pero modificada:")
+    # pretty_print(payload)
+    yield payload
+
+
 def obtain_person_by_lastname(unique_last_name, people):
     return [person for person in people if person['lname']
             == unique_last_name]  # new_user va a ser igual a person si lname == unique_last_name, y esto lo prueba para cada person en people
@@ -64,13 +105,17 @@ def obtain_people():
     return respose, people
 
 
-def create_new_unique_user():
-    unique_last_name = f'Last-name{str(uuid4())}'
-    payload = dumps({
-        'fname': 'New_user',
-        'lname': unique_last_name
-    })  # como crear la payload esta en la info de la API, y el dumps es para convertirlo en json
-    # pretty_print(payload)
+def create_new_unique_user(body=None):
+    if body is None:
+        unique_last_name = f'Last-name{str(uuid4())}'
+        payload = dumps({
+            'fname': 'New_user',
+            'lname': unique_last_name
+        })  # como crear la payload esta en la info de la API, y el dumps es para convertirlo en json
+        # pretty_print(payload)
+    else:
+        unique_last_name = body['lname']
+        payload = dumps(body)
 
     headers = {
         'Content-Type': 'application/json',
