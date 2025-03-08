@@ -1,6 +1,6 @@
 import random
 import requests
-from assertpy.assertpy import assert_that
+from assertpy.assertpy import assert_that, soft_assertions
 import pytest
 from json import dumps, loads
 import json
@@ -10,6 +10,8 @@ from utils.print_helpers import pretty_print
 from config import BASE_URL
 from uuid import uuid4
 from jsonpath_ng import parse
+from tests.schema_test import schema
+from cerberus import Validator
 
 
 def test_read_all_has_kent():
@@ -79,6 +81,29 @@ def test_person_added_with_json_template(create_data):
     # print("lnames: ")
     # pretty_print(persons_lnames)
     assert_that(persons_lnames).contains(create_data['lname'])
+
+
+def test_read_one_person_has_expected_schema():
+    response = requests.get(f'{BASE_URL}/1')
+    person = json.loads(response.text)
+
+    # creo un objeto "validator" de la clase Validator usando el schema definido
+    validator = Validator(schema, require_all=True)
+    # uso el metodo validate que me dara true or false
+    is_valid = validator.validate(person)
+    assert_that(is_valid, description=validator.errors).is_true()
+
+
+def test_read_all_has_expected_schema():
+    response = requests.get(f'{BASE_URL}')
+    people = json.loads(response.text)
+    # pretty_print(people)
+    # uso de nuevo el objetor validador
+    validator = Validator(schema, require_all=True)
+    with soft_assertions():
+        for person in people:  # hace la validacion para cada person en people
+            is_valid = validator.validate(person)
+            assert_that(is_valid, description=validator.errors).is_true()
 
 
 @pytest.fixture
