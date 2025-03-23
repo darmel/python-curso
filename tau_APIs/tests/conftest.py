@@ -13,13 +13,9 @@ def client():
 @pytest.fixture
 def create_data():
     payload = read_file('create_person.json')
-    # print("payload desde json:")
-    # pretty_print(payload)
     random_no = random.randint(0, 1000)
     last_name = f'Lastname{random_no}'
     payload['lname'] = last_name
-    # print("payload desde json pero modificada:")
-    # pretty_print(payload)
     yield payload
 
 

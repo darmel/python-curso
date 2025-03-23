@@ -11,4 +11,3 @@ from pprint import pprint
 def pretty_print(msg, indent=4):
     print()
     pprint(msg, indent=indent)
-    # print(json.dumps(msg, indent=indent))

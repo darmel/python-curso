@@ -6,8 +6,6 @@ from pathlib import Path
 BASE_PATH = Path.cwd().joinpath('tests', 'data')
 # print("Directoroio actual: ", BASE_PATH)
 
-# piramide de automatizacion
-
 
 def read_file(file_name):
     path = get_file_with_json_extension(file_name)

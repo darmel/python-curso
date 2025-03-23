@@ -14,7 +14,6 @@ def assert_fname_is_present(response, fname):
 
 def assert_lname_is_present(response, lname):
     last_names = [person['lname'] for person in response.as_dict]
-    # print(last_names)
     assert_that(last_names).contains(lname)
 
 
@@ -25,8 +24,6 @@ def assert_one_person_has_expected_schema(schema, response):
 
 
 def assert_all_has_expected_schema(schema, response):
-    # validator = Validator(schema, require_all=True)
-    i = 0
     with soft_assertions():
         for person in response:
             assert_one_person_has_expected_schema(schema, person)
