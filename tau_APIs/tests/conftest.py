@@ -1,7 +1,7 @@
 import pytest
 from clients.people_client import PeopleClient
-from utils.clean_db import db_cleaner
-from utils.file_reader import read_file
+from utils.helpers import db_cleaner
+from utils.helpers import read_file
 import random
 
 
